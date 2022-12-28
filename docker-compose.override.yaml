@@ -7,8 +7,13 @@ x-ustreamer-svc: &ustreamer-svc
 ## Add your personal config here
 services:
   klipper:
+    # TODO: make this work
+    device_cgroup_rules:
+      - 'c 188:* rmw'
     devices:
-      - /dev/ttymxc3:/dev/ttymxc3
+      - /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+      #- /dev/ttyUSB0:/dev/ttyUSB0
+      #- /dev/ttymxc3:/dev/ttymxc3
 
   webcam:
     <<: *ustreamer-svc
