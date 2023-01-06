@@ -5,8 +5,13 @@ shift
 
 udev_script="$(readlink -f "${BASH_SOURCE}")"
 prind_location="$(dirname "$(dirname "${udev_script}")")"
+
+prind-compose() {
+  docker-compose --file "${prind_location}/docker-compose.yaml"
+}
+
 klipper-exec() {
-  docker-compose --file "${prind_location}/docker-compose.yaml" exec --user root --no-TTY klipper "$@"
+  prind-compose exec --user root --no-TTY klipper "$@"
 }
 
 read -r -d '' rules <<EOF
@@ -31,6 +36,7 @@ if [ "${action}" = 'add' ] || [ "${action}" = 'change' ]; then
   name="/dev/${1}"
   major="${2}"
   minor="${3}"
+  prind-compose restart klipper
   klipper-exec sh -c "test -c "${name}" && rm -f "${name}""
   klipper-exec sh -c "mknod --mode 660 "${name}" c "${major}" "${minor}" && chown root:dialout "${name}""
 
