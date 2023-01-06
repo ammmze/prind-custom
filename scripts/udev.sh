@@ -15,7 +15,7 @@ udev_script="$(readlink -f "${BASH_SOURCE}")"
 prind_location="$(dirname "$(dirname "${udev_script}")")"
 
 prind-compose() {
-  docker-compose --file "${prind_location}/docker-compose.yaml"
+  docker-compose --file "${prind_location}/docker-compose.yaml" "$@"
 }
 
 klipper-exec() {
