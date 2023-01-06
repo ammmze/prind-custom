@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -z "$SCRIPT" ]; then 
-    /usr/bin/script /var/log/prind-udev.log /bin/bash -c "$0 $*"
-    exit 0
-fi
+# if [ -z "$SCRIPT" ]; then
+#     /usr/bin/script /var/log/prind-udev.log /bin/bash -c "$0 $*"
+#     exit 0
+# fi
 
 action="${1}"
 shift
