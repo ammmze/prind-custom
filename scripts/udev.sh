@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# if [ -z "$SCRIPT" ]; then
-#     /usr/bin/script /var/log/prind-udev.log /bin/bash -c "$0 $*"
-#     exit 0
-# fi
+if [ "$PRIND_UDEV_CAPTURING" != '1' ]; then
+  export PRIND_UDEV_CAPTURING=1
+  /bin/bash -c "$0 $*" | tee -a /var/log/prind-udev.log
+  exit 0
+fi
 
 action="${1}"
 shift
